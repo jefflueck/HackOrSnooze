@@ -19,12 +19,14 @@ async function getAndShowStoriesOnStart() {
  * Returns the markup for the story.
  */
 
-function generateStoryMarkup(story) {
+function generateStoryMarkup(story, showDeleteBtn = false) {
   // console.debug("generateStoryMarkup", story);
-
   const hostName = story.getHostName();
+  const showStar = Boolean(currentUser);
   return $(`
       <li id="${story.storyId}">
+      ${showDeletionBtn ? getDeletionBtn() : ''}
+      ${showStar ? getStarHTML(story, currentUser) : ''}
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -71,4 +73,15 @@ async function submitNewStory(evt) {
   // hide the form and reset it
   $submitForm.slideUp('slow');
   $submitForm.trigger('reset');
+}
+
+$submitForm.on('submit', submitNewStory);
+
+function getStarHTML(story, user) {
+  const isFavorite = user.isFavorite(story);
+  const starType = isFavorite ? 'fas' : 'far';
+  return `
+  <span class="star">
+    <i class="${starType} fa-star"></i>
+  </span>`;
 }

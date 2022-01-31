@@ -34,15 +34,19 @@ $body.on('click', '#nav-all', navAllStories);
 // }
 
 // $navSubmit.on('click', navSubmitClick);
+let $navSubmitStory = $('#navSubmitStory');
+let $submitForm = $('#submitForm');
 
 function navSubmitStoryClick(evt) {
   console.debug('navSubmitStoryClick', evt);
   hidePageComponents();
   $allStoriesList.show();
   $submitForm.show();
+  submitNewStory;
 }
 
 $navSubmitStory.on('click', navSubmitStoryClick);
+
 /** Show login/signup on click on "login" */
 
 function navLoginClick(evt) {
